@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> TWITTER CLASE</title>
+    <style>
+    .input{
+      text-align: center;
+      width: : 2000px;
+      height: 50px;
+      border-style: dashed;
+      border-radius: 20px;
+    }
+    .titulo{
+      text-align: center;
+      background-color: #d900d8;
+      color: white;
+      font-style: italic;
+      font-family: sans-serif;
+      font-size:75px
+    }
+    .div{
+      text-align: center;
+    }
+    .boton{
+      width:100px;
+      height:50px;
+      border-radius: 20px;
+      background-color:black;
+      color:white
+    }
+    .enlace{
+      color:white;
+    }
+    </style>
+  </head>
+  <body background="fondo.jpg">
+    <h1 id="usuario" class="titulo"> LOGIN </h1>
+      <div id="login" class="div">
+        <input  id="user" class="input" name="usuario" type=text>
+        <br><br>
+        <input id="contraseña" class="input" name="contraseña" type=password>
+        <br><br>
+        <button id="entrar" class="boton">LOGIN</button>
+        <br><br>
+        <a id="enlace" href="" class="enlace">CREAR NUEVA CUENTA </a>
+      </div>
+      <div id="registro" class="div">
+        <input id="nuevousuario" class="input" name="nuevousuario" type=text>
+        <br><br>
+        <input id="nuevacontraseña" class="input" name ="nuevacontraseña" type=password>
+        <br><br>
+        <button id="entrar" class="boton">CREAR USUARIO</button>
+      </div>
+      <div id="tweets" class="div">
+        <h1 id="todostweets"> TWITTER CLASE </h1>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+      <script>
+      function registro(){
+        $("div#registro").hide()
+        $("div#tweets").hide()
+        $("entrar").click(function(fecha){
+
+          var username=$("#user").val();
+          var password=$("#contraseña").val();
+          $.ajax({
+            url:"http://192.168.100.62.1337/login",
+            type:"POST",
+            data:{
+
+            }
+          }).done(iniciarSesion)
+        })
+      }
+        $("#enlace").click(function(){
+          $.ajax({
+            url:"http://192.168.100.62.1337/usuario",
+            type:"POST",
+            data:{
+
+            }
+          }).done(iniciarSesion)
+        })
+
+
+      function iniciarSesion(){
+        $("div#login").hide()
+        $("div#registro").hide()
+        $("entrar").click(function(){
+          ;
+          $.ajax({
+            url:"http://192.168.100.62.1337/tweets",
+            type:"GET",
+            data:{
+
+            }
+          }).done(iniciarSesion)
+        })
+      }
+
+      function crearUsuario(){
+        $("div#login").hide()
+        $("div#registro").hide()
+        $("#entrar").click(function(){
+          var username=$("#nuevousuario").val();
+          var password=$("#nuevacontraseña").val()
+          $.ajax({
+            url:"http://192.168.100.62.1337/usuario",
+            type:"POST",
+            data:{
+              nuevousuario:username
+              nuevacontraseña:password
+            }
+          }).done(registro)
+        })
+      }
+      registro()
+
+
+      </script>
+
+  </body>
+</html>
